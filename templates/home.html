@@ -6,9 +6,15 @@
 </head>
 <body>
 <h1>Home</h1>
-<form action="" method="POST">
+<form action="/" method="POST">
       <input type="text" name="titulo">
       <input type="submit" value="adicionar">
 </form>
+
+
+<h1>Books</h1>
+    {% for b in books %}
+      <p>{{b.titulo}}</p>
+    {% endfor %}
 </body>
 </html>
