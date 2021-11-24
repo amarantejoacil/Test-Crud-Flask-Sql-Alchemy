@@ -18,8 +18,8 @@ def home():
         book = Book(titulo=request.form.get('titulo'))
         db.session.add(book)
         db.session.commit()
-        print(request.form)
-    return render_template('home.html')
+    books = Book.query.all()
+    return render_template('home.html', books=books)
 
 
 class Book(db.Model):
