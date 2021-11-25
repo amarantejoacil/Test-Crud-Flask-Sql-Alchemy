@@ -18,10 +18,30 @@ class Aluno(db.Model):
         self.nome = nome
         self.idade = idade
 
+
+class Curso(db.Model):
+    id = db.Column('id', db.Integer, primary_key=True, autoincrement=True)
+    descricao = db.Column(db.String(150))
+
+    def __init__(self, descricao):
+        self.descricao = descricao
+
+
 @app.route('/')
 def consultar_aluno():
     alunos = Aluno.query.all()
-    return render_template('listar-aluno.html', alunos=alunos)
+    cursos = Curso.query.all()
+    return render_template('listar-aluno.html', alunos=alunos, cursos=cursos)
+
+
+@app.route('/adicionar_curso', methods=['GET', 'POST'])
+def adicionar_curso():
+    if request.method == 'POST':
+        curso = Curso(request.form['descricao'])
+        db.session.add(curso)
+        db.session.commit()
+        return redirect('/')
+    return render_template('adicionar_curso.html')
 
 
 @app.route('/adicionar_aluno', methods=['GET', 'POST'])
@@ -54,5 +74,5 @@ def excluir_aluno(id):
 
 
 if __name__ == '__main__':
-    # db.create_all()
+    db.create_all()
     app.run(debug=True)

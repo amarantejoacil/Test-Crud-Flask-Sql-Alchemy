@@ -14,10 +14,12 @@
 
 <div class="container">
 <br><a href="/adicionar_aluno" class="btn btn-primary">Adicionar estudante</a><br><br>
+<br><a href="/adicionar_curso" class="btn btn-success">Adicionar Curso</a><br><br>
+ <h1>Lista de Alunos</h1>
 <table class="table">
     <thead>
         <tr>
-            <th>Nome</th>
+            <th>Aluno</th>
             <th>Idade</th>
             <th>Ações</th>
         </tr>
@@ -31,6 +33,28 @@
                 <td>
                     <a href="/editar_aluno/{{e.id}}">Editar</a> |
                     <a href="/excluir_aluno/{{e.id}}">Deletar</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h1>Lista de Curso</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Descrição</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for c in cursos %}
+            <tr>
+                <td>{{c.descricao}}</td>
+                <td>
+                    <a href="#">Editar</a> |
+                    <a href="#">Deletar</a>
                 </td>
             </tr>
         {% endfor %}
