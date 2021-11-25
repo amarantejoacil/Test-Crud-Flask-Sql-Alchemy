@@ -1,7 +1,5 @@
-import os
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
-
 
 app = Flask(__name__, template_folder='templates')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///aluno_banco.sqlite3'
@@ -10,9 +8,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 class Aluno(db.Model):
-    id = db.Column('id', db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column('id', db.Integer, primary_key=True, autoincrement=True, index=True)
     nome = db.Column(db.String(150))
     idade = db.Column(db.Integer)
+    # curso_id = db.Column(db.Integer, db.ForeignKey('curso.id'))
 
     def __init__(self, nome, idade):
         self.nome = nome
@@ -20,8 +19,9 @@ class Aluno(db.Model):
 
 
 class Curso(db.Model):
-    id = db.Column('id', db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column('id', db.Integer, primary_key=True, autoincrement=True, index=True)
     descricao = db.Column(db.String(150))
+    # alunos = db.relationship('Aluno', backref='curso_id')
 
     def __init__(self, descricao):
         self.descricao = descricao
@@ -31,7 +31,7 @@ class Curso(db.Model):
 def consultar_aluno():
     alunos = Aluno.query.all()
     cursos = Curso.query.all()
-    return render_template('listar-aluno.html', alunos=alunos, cursos=cursos)
+    return render_template('listar-aluno.html',alunos=alunos, cursos=cursos )
 
 
 @app.route('/adicionar_curso', methods=['GET', 'POST'])
@@ -74,5 +74,5 @@ def excluir_aluno(id):
 
 
 if __name__ == '__main__':
-    db.create_all()
+    #db.create_all()
     app.run(debug=True)

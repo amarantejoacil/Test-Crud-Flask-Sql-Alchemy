@@ -21,6 +21,7 @@
         <tr>
             <th>Aluno</th>
             <th>Idade</th>
+            <th>Curso</th>
             <th>Ações</th>
         </tr>
     </thead>
@@ -30,6 +31,7 @@
             <tr>
                 <td>{{e.nome}}</td>
                 <td>{{e.idade}}</td>
+                <td>{{e.curso_id}}</td>
                 <td>
                     <a href="/editar_aluno/{{e.id}}">Editar</a> |
                     <a href="/excluir_aluno/{{e.id}}">Deletar</a>
