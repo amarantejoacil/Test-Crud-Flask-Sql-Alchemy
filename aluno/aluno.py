@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import declarative_base
+
+Base = declarative_base()
 
 app = Flask(__name__, template_folder='templates')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///aluno_banco.sqlite3'
@@ -21,7 +24,7 @@ class Aluno(db.Model):
 class Curso(db.Model):
     id = db.Column('id', db.Integer, primary_key=True, autoincrement=True, index=True)
     descricao = db.Column(db.String(150))
-    # alunos = db.relationship('Aluno', backref='curso_id')
+    # alunos = db.relationship('Aluno', backref='curso_id', lazy=True)
 
     def __init__(self, descricao):
         self.descricao = descricao
